@@ -1,5 +1,5 @@
 #!/bin/bash
-sfile="https://github.com/GawrAme/MarLing/blob/main"
+sfile="https://github.com/lunoxxdev/EdyJawAireng/blob/main"
 
 #domain
 read -rp "Masukkan Domain: " domain
@@ -60,24 +60,24 @@ sudo bash -c "$(curl -sL https://github.com/lunoxxdev/Marzban-scripts/raw/master
 wget -N -P /opt/marzban  https://cdn.jsdelivr.net/gh/lunoxxdev/marhabantemplet@main/template-01/index.html
 
 #install env
-wget -O /opt/marzban/.env "https://raw.githubusercontent.com/GawrAme/MarLing/main/env"
+wget -O /opt/marzban/.env "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/env"
 
 #profile
 echo -e 'profile' >> /root/.profile
-wget -O /usr/bin/profile "https://raw.githubusercontent.com/GawrAme/MarLing/main/profile";
+wget -O /usr/bin/profile "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/profile";
 chmod +x /usr/bin/profile
 apt install neofetch -y
-wget -O /usr/bin/cekservice "https://raw.githubusercontent.com/GawrAme/MarLing/main/cekservice.sh"
+wget -O /usr/bin/cekservice "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/cekservice.sh"
 chmod +x /usr/bin/cekservice
 
 #install compose
-wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/GawrAme/MarLing/main/docker-compose.yml"
+wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/docker-compose.yml"
 
 #Install VNSTAT
 apt -y install vnstat
 /etc/init.d/vnstat restart
 apt -y install libsqlite3-dev
-wget https://github.com/GawrAme/MarLing/raw/main/vnstat-2.6.tar.gz
+wget https://github.com/lunoxxdev/EdyJawAireng/raw/main/vnstat-2.6.tar.gz
 tar zxvf vnstat-2.6.tar.gz
 cd vnstat-2.6
 ./configure --prefix=/usr --sysconfdir=/etc && make && make install 
@@ -95,12 +95,12 @@ sudo apt-get install speedtest -y
 #install nginx
 apt install nginx -y
 rm /etc/nginx/conf.d/default.conf
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/GawrAme/MarLing/main/nginx.conf"
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/GawrAme/MarLing/main/vps.conf"
-wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/GawrAme/MarLing/main/xray.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/nginx.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/vps.conf"
+wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/xray.conf"
 systemctl enable nginx
 mkdir -p /var/www/html
-echo "<pre>Setup by LingVPN</pre>" > /var/www/html/index.html
+echo "<pre>Remake by Leluhur Edy</pre>" > /var/www/html/index.html
 systemctl start nginx
 
 #install socat
@@ -114,7 +114,7 @@ curl https://get.acme.sh | sh -s email=$email
 /root/.acme.sh/acme.sh --server letsencrypt --register-account -m $email --issue -d $domain --standalone -k ec-256
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /var/lib/marzban/xray.crt --keypath /var/lib/marzban/xray.key --ecc
 systemctl start nginx
-wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/GawrAme/MarLing/main/xray_config.json"
+wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/xray_config.json"
 
 #install firewall
 apt install ufw -y
@@ -130,7 +130,7 @@ sudo ufw allow 1080/udp
 yes | sudo ufw enable
 
 #install database
-wget -O /var/lib/marzban/db.sqlite3 "https://github.com/GawrAme/MarLing/raw/main/db.sqlite3"
+wget -O /var/lib/marzban/db.sqlite3 "https://github.com/lunoxxdev/EdyJawAireng/raw/main/db.sqlite3"
 
 #install WARP Proxy
 wget -O /root/warp "https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh"
