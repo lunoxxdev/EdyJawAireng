@@ -95,10 +95,3 @@ Lalu ubah variabel {SERVER_IP} dibawah menjadi domain yang sudah di pointing tad
 # VLESS gRPC
 ![image](https://github.com/GawrAme/MarLing/assets/97426017/6e2cbaa1-4c62-4d93-b55e-142ec734de6c)
 </br>
-
-Jika menurut pean script ini membantu, boleh kira nya membelikan saya secangkir kopi melalui QRis dibawah, berapapun nominal nya saya terima 🙏 <br>
-![image](https://github.com/GawrAme/MarLing/assets/97426017/096f46ba-ed4d-47c8-a887-f3f3acd595d5)
-
-Terima kasih orang baik! 🙏 
-
-</br>
