@@ -100,7 +100,7 @@ wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/lunoxxdev/
 wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/xray.conf"
 systemctl enable nginx
 mkdir -p /var/www/html
-echo "<pre>Remake by Leluhur Edy</pre>" > /var/www/html/index.html
+echo "<pre>Powered by EdyDev | Telegram : @kangbacox</pre>" > /var/www/html/index.html
 systemctl start nginx
 
 #install socat
