@@ -25,16 +25,6 @@
         "outboundTag": "dns-out"
       },
       {
-        "domain": [
-          "geosite:spotify",
-          "geosite:netflix",
-          "geosite:openai"
-        ],
-        "outboundTag": "WARP",
-        "network": "tcp,udp",
-        "type": "field"
-      },
-      {
         "type": "field",
         "protocol": [
           "bittorent"
@@ -232,18 +222,6 @@
         "nonIPQuery": "skip"
       },
       "tag": "dns-out"
-    },
-    {
-      "tag": "WARP",
-      "protocol": "socks",
-      "settings": {
-        "servers": [
-          {
-            "address": "127.0.0.1",
-            "port": 40000
-          }
-        ]
-      }
     }
   ],
   "policy": {
