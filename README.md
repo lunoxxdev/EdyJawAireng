@@ -9,7 +9,6 @@ Credit aplikasi full to [Gozargah Marzban](https://github.com/Gozargah), saya ha
 
 # Special Thanks to
 - [Gozargah](https://github.com/Gozargah/Marzban)
-- [hamid-gh98](https://github.com/hamid-gh98)
 - [MuhammadAshouri](https://github.com/MuhammadAshouri/marzban-templates)
 
 # List Protocol yang support
