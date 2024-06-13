@@ -75,7 +75,7 @@ apt-get install libio-socket-inet6-perl libsocket6-perl libcrypt-ssleay-perl lib
 timedatectl set-timezone Asia/Jakarta;
 
 # Install Marzban
-sudo bash -c "$(curl -sL https://github.com/lunoxxdev/Marzban-scripts/raw/master/marzban.sh)" @ install
+sudo -n bash -c "$(curl -sL https://github.com/lunoxxdev/Marzban-scripts/raw/master/marzban.sh)" @ install
 
 # Install Subs
 wget -N -P /opt/marzban  https://cdn.jsdelivr.net/gh/lunoxxdev/marhabantemplet@main/template-01/index.html
@@ -139,27 +139,27 @@ wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/lun
 
 # Install firewall
 apt install ufw -y
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
-sudo ufw allow 7879/tcp
-sudo ufw allow 8081/tcp
-sudo ufw allow 1080/tcp
-sudo ufw allow 1080/udp
+sudo -n ufw default deny incoming
+sudo -n ufw default allow outgoing
+sudo -n ufw allow ssh
+sudo -n ufw allow http
+sudo -n ufw allow https
+sudo -n ufw allow 7879/tcp
+sudo -n ufw allow 8081/tcp
+sudo -n ufw allow 1080/tcp
+sudo -n ufw allow 1080/udp
 yes | sudo ufw enable
 
 # Install database
 wget -O /var/lib/marzban/db.sqlite3 "https://github.com/lunoxxdev/EdyJawAireng/raw/main/db.sqlite3"
 
 # Create admin panel user
-sudo marzban cli admin create --username $admin_username --password $admin_password
+sudo -n marzban cli admin create --username $admin_username --password $admin_password
 
 # Ask to delete default admin user
 read -rp "Apakah Anda ingin menghapus user admin bawaan? (Y/N): " delete_default_admin
 if [[ "$delete_default_admin" =~ ^[Yy]$ ]]; then
-    sudo marzban cli admin delete
+    sudo -n marzban cli admin delete
 fi
 
 # Finishing
@@ -167,7 +167,7 @@ apt autoremove -y
 systemctl restart nginx
 rm /root/edy.sh
 apt clean
-sudo marzban restart
+sudo -n marzban restart
 
 # Send success message to Telegram
 IPVPS=$(curl -s https://ipinfo.io/ip)
