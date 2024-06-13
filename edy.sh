@@ -245,13 +245,10 @@ profile
 echo "Untuk data login dashboard Marzban: " | tee -a log-install.txt
 echo "-=================================-" | tee -a log-install.txt
 echo "URL HTTPS : https://${domain}/dashboard" | tee -a log-install.txt
-echo "URL HTTP  : http://${domain}:7879/dashboard" | tee -a log-install.txt
 echo "username  : ${userpanel}" | tee -a log-install.txt
 echo "password  : ${passpanel}" | tee -a log-install.txt
 echo "-=================================-" | tee -a log-install.txt
-echo "Jangan lupa join Channel & Grup Telegram saya juga di" | tee -a log-install.txt
-echo "Telegram Channel: https://t.me/LingVPN" | tee -a log-install.txt
-echo "Telegram Group: https://t.me/LingVPN_Group" | tee -a log-install.txt
+echo "Bersama Edy Membangun Negeri" | tee -a log-install.txt
 echo "-=================================-" | tee -a log-install.txt
 colorized_echo green "Script telah berhasil di install"
 rm /root/edy.sh
@@ -266,7 +263,6 @@ ISP=$(curl -s https://ipinfo.io/org | awk '{print $2,$3,$4}')
 REGION=$(curl -s https://ipinfo.io/region)
 DATE=$(date '+%Y-%m-%d')
 TIME=$(date '+%H:%M:%S')
-EXPIRE_DATE=$(date -d "+1 day" '+%Y-%m-%d')
 
 MESSAGE="◇━━━━━━━━━━━━━━━━━◇
 ⚠️SUCCESFULLY INSTALL⚠️
@@ -277,13 +273,12 @@ MESSAGE="◇━━━━━━━━━━━━━━━━━◇
 ❖ Waktu   : $TIME
 ❖ Tanggal : $DATE
 ❖ IP VPS  : $IPVPS
-❖ Linux Os: $OS
-❖ Nama ISP: $ISP
-❖ Area ISP: $REGION
-❖ MasaAktif: Liptime
-❖ Exp Sc  : $EXPIRE_DATE
-❖ Status Sc: Registrasi
-❖ Order By: lunoxx
+❖ Linux Os : $OS
+❖ Nama ISP : $ISP
+❖ Area ISP : $REGION
+❖ Exp SC : Liptime
+❖ Status SC: Registrasi
+❖ Admin : Lunoxx
 ◇━━━━━━━━━━━━━━━━━◇"
 
 send_telegram_message "$MESSAGE"
