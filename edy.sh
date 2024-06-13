@@ -38,6 +38,7 @@ if [ "$supported_os" != true ]; then
     colorized_echo red "Error: Skrip ini hanya support di Debian 11 dan Ubuntu 20.04. Mohon gunakan OS yang di support."
     exit 1
 fi
+mkdir -p /etc/data
 
 #domain
 read -rp "Masukkan Domain: " domain
