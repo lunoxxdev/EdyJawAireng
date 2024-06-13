@@ -36,9 +36,12 @@ Credit aplikasi full to [Gozargah Marzban](https://github.com/Gozargah), saya ha
  ```
 Pastikan anda sudah login sebagai root sebelum menjalankan perintah dibawah
  ```html
- wget https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/edy.sh && chmod +x edy.sh && ./edy.sh
+ apt install tmux -y && wget https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/edy.sh && chmod +x edy.sh && tmux new-session -d -s edyjawa './edy.sh' && tmux attach -t edyjawa
  ```
- 
+Jika koneksi terputus, hubungkan kembali ke sesi
+```html
+tmux attach -t edyjawa
+ ```
 Setelah instalasi berhasil, Panel login / Admin bisa ditambahkan dengan command
 ```html
 marzban cli admin create --sudo
