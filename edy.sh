@@ -147,6 +147,13 @@ wget -N -P /opt/marzban  https://cdn.jsdelivr.net/gh/lunoxxdev/marhabantemplet@m
 # Install env
 wget -O /opt/marzban/.env "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/env"
 
+# Install Core
+apt install wget unzip
+mkdir -p /var/lib/marzban/xray-core && cd /var/lib/marzban/xray-core
+wget https://github.com/XTLS/Xray-core/releases/download/v1.8.3/Xray-linux-64.zip
+unzip Xray-linux-64.zip && rm Xray-linux-64.zip LICENSE README.md
+echo 'XRAY_EXECUTABLE_PATH = "/var/lib/marzban/xray-core/xray"' | sudo tee -a /opt/marzban/.env
+
 # Profile
 echo -e 'profile' >> /root/.profile
 wget -O /usr/bin/profile "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/profile";
