@@ -37,10 +37,13 @@ CHAT_ID="335842883"
 # Function to send message to Telegram
 send_telegram_message() {
     MESSAGE=$1
-    curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+    RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
         -d chat_id="$CHAT_ID" \
         -d parse_mode="Markdown" \
-        -d text="$MESSAGE"
+        -d text="$MESSAGE")
+
+    # Print the response using jq to pretty-print
+    echo "$RESPONSE" | jq .
 }
 
 # Check if the script is run as root
@@ -99,6 +102,7 @@ echo "$passpanel" > /etc/data/passpanel
 clear
 cd;
 apt-get update;
+apt-get install jq;
 
 # Remove unused Module
 apt-get -y --purge remove samba*;
@@ -284,6 +288,8 @@ MESSAGE="◇━━━━━━━━━━━━━━━━━◇
 
 send_telegram_message "$MESSAGE"
 
+clear
+sleep 2
 echo -e "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error lur [default y](y/n)? "
 read answer
 if [ "$answer" == "${answer#[Yy]}" ] ;then
