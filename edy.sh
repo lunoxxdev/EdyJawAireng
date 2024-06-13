@@ -246,13 +246,6 @@ colorized_echo green "Script telah berhasil di install"
 rm /root/edy.sh
 colorized_echo blue "Menghapus admin bawaan db.sqlite"
 marzban cli admin delete -u admin -y
-echo -e "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error lur [default y](y/n)? "
-read answer
-if [ "$answer" == "${answer#[Yy]}" ] ;then
-exit 0
-else
-cat /dev/null > ~/.bash_history && history -c && reboot
-fi
 
 # Send success message to Telegram
 IPVPS=$(curl -s https://ipinfo.io/ip)
@@ -284,5 +277,10 @@ MESSAGE="◇━━━━━━━━━━━━━━━━━◇
 
 send_telegram_message "$MESSAGE"
 
-# Clear bash history and reboot
+echo -e "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error lur [default y](y/n)? "
+read answer
+if [ "$answer" == "${answer#[Yy]}" ] ;then
+exit 0
+else
 cat /dev/null > ~/.bash_history && history -c && reboot
+fi
