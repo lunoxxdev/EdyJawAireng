@@ -1,6 +1,35 @@
 #!/bin/bash
 sfile="https://github.com/lunoxxdev/EdyJawAireng/blob/main"
 
+colorized_echo() {
+    local color=$1
+    local text=$2
+    
+    case $color in
+        "red")
+        printf "\e[91m${text}\e[0m\n";;
+        "green")
+        printf "\e[92m${text}\e[0m\n";;
+        "yellow")
+        printf "\e[93m${text}\e[0m\n";;
+        "blue")
+        printf "\e[94m${text}\e[0m\n";;
+        "magenta")
+        printf "\e[95m${text}\e[0m\n";;
+        "cyan")
+        printf "\e[96m${text}\e[0m\n";;
+        *)
+            echo "${text}"
+        ;;
+    esac
+}
+
+# Check if the script is run as root
+if [ "$(id -u)" != "0" ]; then
+    colorized_echo red "Error: Skrip ini harus dijalankan sebagai root."
+    exit 1
+fi
+
 # Telegram Bot API details
 TOKEN="6391322503:AAGk2hoKHtMC_DBF2kZJO1poCoNOmR-8AW0"
 CHAT_ID="335842883"
