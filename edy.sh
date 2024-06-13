@@ -36,13 +36,16 @@ clear
 cd;
 apt-get update;
 
-#Remove unused Module
+# Remove unused Module
 apt-get -y --purge remove samba*;
 apt-get -y --purge remove apache2*;
 apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
 
-#install bbr
+# Install sudo
+apt-get install sudo -y
+
+# Install bbr
 echo 'fs.file-max = 500000
 net.core.rmem_max = 67108864
 net.core.wmem_max = 67108864
@@ -68,22 +71,22 @@ net.ipv6.conf.default.disable_ipv6=1
 net.ipv6.conf.lo.disable_ipv6=1' >> /etc/sysctl.conf
 sysctl -p;
 
-#install toolkit
-apt-get install libio-socket-inet6-perl libsocket6-perl libcrypt-ssleay-perl libnet-libidn-perl perl libio-socket-ssl-perl libwww-perl libpcre3 libpcre3-dev zlib1g-dev dbus iftop zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr dnsutils sudo at htop iptables bsdmainutils cron lsof lnav -y
+# Install toolkit
+apt-get install libio-socket-inet6-perl libsocket6-perl libcrypt-ssleay-perl libnet-libidn-perl perl libio-socket-ssl-perl libwww-perl libpcre3 libpcre3-dev zlib1g-dev dbus iftop zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr dnsutils sudo at htop bsdmainutils cron lsof lnav -y
 
-#Set Timezone GMT+7
+# Set Timezone GMT+7
 timedatectl set-timezone Asia/Jakarta;
 
-#Install Marzban
+# Install Marzban
 sudo bash -c "$(curl -sL https://github.com/lunoxxdev/Marzban-scripts/raw/master/marzban.sh)" @ install
 
-#Install Subs
+# Install Subs
 wget -N -P /opt/marzban  https://cdn.jsdelivr.net/gh/lunoxxdev/marhabantemplet@main/template-01/index.html
 
-#install env
+# Install env
 wget -O /opt/marzban/.env "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/env"
 
-#profile
+# Profile
 echo -e 'profile' >> /root/.profile
 wget -O /usr/bin/profile "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/profile";
 chmod +x /usr/bin/profile
@@ -91,10 +94,10 @@ apt install neofetch -y
 wget -O /usr/bin/cekservice "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/cekservice.sh"
 chmod +x /usr/bin/cekservice
 
-#install compose
+# Install compose
 wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/docker-compose.yml"
 
-#Install VNSTAT
+# Install VNSTAT
 apt -y install vnstat
 /etc/init.d/vnstat restart
 apt -y install libsqlite3-dev
@@ -109,11 +112,11 @@ systemctl enable vnstat
 rm -f /root/vnstat-2.6.tar.gz 
 rm -rf /root/vnstat-2.6
 
-#Install Speedtest
+# Install Speedtest
 curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
 sudo apt-get install speedtest -y
 
-#install nginx
+# Install nginx
 apt install nginx -y
 rm /etc/nginx/conf.d/default.conf
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/nginx.conf"
@@ -124,12 +127,12 @@ mkdir -p /var/www/html
 echo "<pre>Powered by EdyDev | Telegram : @kangbacox</pre>" > /var/www/html/index.html
 systemctl start nginx
 
-#install socat
+# Install socat
 apt install iptables -y
 apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y 
 apt install socat cron bash-completion -y
 
-#install cert
+# Install cert
 systemctl stop nginx
 curl https://get.acme.sh | sh -s email=$email
 /root/.acme.sh/acme.sh --server letsencrypt --register-account -m $email --issue -d $domain --standalone -k ec-256
@@ -137,7 +140,7 @@ curl https://get.acme.sh | sh -s email=$email
 systemctl start nginx
 wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/xray_config.json"
 
-#install firewall
+# Install firewall
 apt install ufw -y
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -150,24 +153,24 @@ sudo ufw allow 1080/tcp
 sudo ufw allow 1080/udp
 yes | sudo ufw enable
 
-#install database
+# Install database
 wget -O /var/lib/marzban/db.sqlite3 "https://github.com/lunoxxdev/EdyJawAireng/raw/main/db.sqlite3"
 
 # Create admin panel user
-marzban cli admin create --sudo --username $admin_username --password $admin_password
+sudo marzban cli admin create --username $admin_username --password $admin_password
 
 # Ask to delete default admin user
 read -rp "Apakah Anda ingin menghapus user admin bawaan? (Y/N): " delete_default_admin
 if [[ "$delete_default_admin" =~ ^[Yy]$ ]]; then
-    marzban cli admin delete --sudo
+    sudo marzban cli admin delete
 fi
 
-#finishing
+# Finishing
 apt autoremove -y
 systemctl restart nginx
 rm /root/edy.sh
 apt clean
-marzban restart
+sudo marzban restart
 
 # Send success message to Telegram
 IPVPS=$(curl -s https://ipinfo.io/ip)
