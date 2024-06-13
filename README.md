@@ -42,10 +42,6 @@ Jika koneksi terputus, hubungkan kembali ke sesi
 ```html
 tmux attach -t edyjawa
  ```
-Setelah instalasi berhasil, Panel login / Admin bisa ditambahkan dengan command
-```html
-marzban cli admin create --sudo
- ```
 Buka panel Marzban dengan mengunjungi https://domainmu/dashboard <br>
 
 Jika ingin mengubah konfigurasi env variable 
