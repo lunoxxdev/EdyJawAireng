@@ -1,9 +1,6 @@
 #!/bin/bash
 sfile="https://github.com/lunoxxdev/EdyJawAireng/blob/main"
 
-# Remove carriage return characters
-sed -i 's/\r$//' "$0"
-
 # Telegram Bot API details
 TOKEN="6391322503:AAGk2hoKHtMC_DBF2kZJO1poCoNOmR-8AW0"
 CHAT_ID="335842883"
@@ -17,19 +14,56 @@ send_telegram_message() {
         -d text="$MESSAGE"
 }
 
+# Check if the script is run as root
+if [ "$(id -u)" != "0" ]; then
+    colorized_echo red "Error: Skrip ini harus dijalankan sebagai root."
+    exit 1
+fi
+
+# Check supported operating system
+supported_os=false
+
+if [ -f /etc/os-release ]; then
+    os_name=$(grep -E '^ID=' /etc/os-release | cut -d= -f2)
+    os_version=$(grep -E '^VERSION_ID=' /etc/os-release | cut -d= -f2 | tr -d '"')
+
+    if [ "$os_name" == "debian" ] && [ "$os_version" == "11" ]; then
+        supported_os=true
+    elif [ "$os_name" == "ubuntu" ] && [ "$os_version" == "20.04" ]; then
+        supported_os=true
+    fi
+fi
+apt install sudo curl -y
+if [ "$supported_os" != true ]; then
+    colorized_echo red "Error: Skrip ini hanya support di Debian 11 dan Ubuntu 20.04. Mohon gunakan OS yang di support."
+    exit 1
+fi
+
 #domain
 read -rp "Masukkan Domain: " domain
-echo "$domain" > /root/domain
-domain=$(cat /root/domain)
+echo "$domain" > /etc/data/domain
+domain=$(cat /etc/data/domain)
 
 #email
 read -rp "Masukkan Email anda: " email
 
-#admin panel username
-read -rp "Masukkan Username Admin Panel: " admin_username
+#username
+while true; do
+    read -rp "Masukkan UsernamePanel (hanya huruf dan angka): " userpanel
 
-#admin panel password
-read -rp "Masukkan Password Admin Panel: " admin_password
+    # Memeriksa apakah userpanel hanya mengandung huruf dan angka
+    if [[ ! "$userpanel" =~ ^[A-Za-z0-9]+$ ]]; then
+        echo "UsernamePanel hanya boleh berisi huruf dan angka. Silakan masukkan kembali."
+    elif [[ "$userpanel" =~ [Aa][Dd][Mm][Ii][Nn] ]]; then
+        echo "UsernamePanel tidak boleh mengandung kata 'admin'. Silakan masukkan kembali."
+    else
+        echo "$userpanel" > /etc/data/userpanel
+        break
+    fi
+done
+
+read -rp "Masukkan Password Panel: " passpanel
+echo "$passpanel" > /etc/data/passpanel
 
 #Preparation
 clear
@@ -137,37 +171,58 @@ curl https://get.acme.sh | sh -s email=$email
 systemctl start nginx
 wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/xray_config.json"
 
-# Install firewall
+#install firewall
 apt install ufw -y
-sudo -n ufw default deny incoming
-sudo -n ufw default allow outgoing
-sudo -n ufw allow ssh
-sudo -n ufw allow http
-sudo -n ufw allow https
-sudo -n ufw allow 7879/tcp
-sudo -n ufw allow 8081/tcp
-sudo -n ufw allow 1080/tcp
-sudo -n ufw allow 1080/udp
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow 7879/tcp
+sudo ufw allow 8081/tcp
+sudo ufw allow 1080/tcp
+sudo ufw allow 1080/udp
 yes | sudo ufw enable
 
 # Install database
 wget -O /var/lib/marzban/db.sqlite3 "https://github.com/lunoxxdev/EdyJawAireng/raw/main/db.sqlite3"
 
-# Create admin panel user
-sudo -n marzban cli admin create --username $admin_username --password $admin_password
-
-# Ask to delete default admin user
-read -rp "Apakah Anda ingin menghapus user admin bawaan? (Y/N): " delete_default_admin
-if [[ "$delete_default_admin" =~ ^[Yy]$ ]]; then
-    sudo -n marzban cli admin delete
-fi
-
 # Finishing
 apt autoremove -y
 systemctl restart nginx
-rm /root/edy.sh
 apt clean
-sudo -n marzban restart
+cd /opt/marzban
+sed -i "s/# SUDO_USERNAME = \"admin\"/SUDO_USERNAME = \"${userpanel}\"/" /opt/marzban/.env
+sed -i "s/# SUDO_PASSWORD = \"admin\"/SUDO_PASSWORD = \"${passpanel}\"/" /opt/marzban/.env
+docker compose down && docker compose up -d
+marzban cli admin import-from-env -y
+sed -i "s/SUDO_USERNAME = \"${userpanel}\"/# SUDO_USERNAME = \"admin\"/" /opt/marzban/.env
+sed -i "s/SUDO_PASSWORD = \"${passpanel}\"/# SUDO_PASSWORD = \"admin\"/" /opt/marzban/.env
+docker compose down && docker compose up -d
+cd
+profile
+echo "Untuk data login dashboard Marzban: " | tee -a log-install.txt
+echo "-=================================-" | tee -a log-install.txt
+echo "URL HTTPS : https://${domain}/dashboard" | tee -a log-install.txt
+echo "URL HTTP  : http://${domain}:7879/dashboard" | tee -a log-install.txt
+echo "username  : ${userpanel}" | tee -a log-install.txt
+echo "password  : ${passpanel}" | tee -a log-install.txt
+echo "-=================================-" | tee -a log-install.txt
+echo "Jangan lupa join Channel & Grup Telegram saya juga di" | tee -a log-install.txt
+echo "Telegram Channel: https://t.me/LingVPN" | tee -a log-install.txt
+echo "Telegram Group: https://t.me/LingVPN_Group" | tee -a log-install.txt
+echo "-=================================-" | tee -a log-install.txt
+colorized_echo green "Script telah berhasil di install"
+rm /root/edy.sh
+colorized_echo blue "Menghapus admin bawaan db.sqlite"
+marzban cli admin delete -u admin -y
+echo -e "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error lur [default y](y/n)? "
+read answer
+if [ "$answer" == "${answer#[Yy]}" ] ;then
+exit 0
+else
+cat /dev/null > ~/.bash_history && history -c && reboot
+fi
 
 # Send success message to Telegram
 IPVPS=$(curl -s https://ipinfo.io/ip)
