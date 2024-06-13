@@ -42,9 +42,6 @@ apt-get -y --purge remove apache2*;
 apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
 
-# Install sudo
-apt-get install sudo -y
-
 # Install bbr
 echo 'fs.file-max = 500000
 net.core.rmem_max = 67108864
