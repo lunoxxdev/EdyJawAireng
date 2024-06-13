@@ -39,7 +39,7 @@ send_telegram_message() {
     MESSAGE=$1
     RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
         -d chat_id="$CHAT_ID" \
-        -d parse_mode="Markdown" \
+        -d parse_mode="MarkdownV2" \
         -d text="$MESSAGE")
 
     # Print the response using jq to pretty-print
@@ -265,20 +265,22 @@ DATE=$(date '+%Y-%m-%d')
 TIME=$(date '+%H:%M:%S')
 
 MESSAGE="◇━━━━━━━━━━━━━━━━━◇
-⚠️SUCCESFULLY INSTALL⚠️
+⚠️*SUCCESFULLY INSTALL*⚠️
 ◇━━━━━━━━━━━━━━━━━◇
-❖ Username : $HOSTNAME
-❖ Status  : Active
-❖ Domain  : $domain
-❖ Waktu   : $TIME
-❖ Tanggal : $DATE
-❖ IP VPS  : $IPVPS
-❖ Linux Os : $OS
-❖ Nama ISP : $ISP
-❖ Area ISP : $REGION
-❖ Exp SC : Liptime
-❖ Status SC: Registrasi
-❖ Admin : Lunoxx
+\`\`\`
+❖ Username  : $HOSTNAME
+❖ Status    : Active
+❖ Domain    : $domain
+❖ Waktu     : $TIME
+❖ Tanggal   : $DATE
+❖ IP VPS    : $IPVPS
+❖ Linux OS  : $OS
+❖ Nama ISP  : $ISP
+❖ Area ISP  : $REGION
+❖ Exp SC    : Liptime
+❖ Status SC : Registrasi
+❖ Admin     : Lunoxx
+\`\`\`
 ◇━━━━━━━━━━━━━━━━━◇"
 
 send_telegram_message "$MESSAGE"
