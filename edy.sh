@@ -258,7 +258,7 @@ echo "URL HTTPS : https://${domain}/dashboard" | tee -a log-install.txt
 echo "username  : ${userpanel}" | tee -a log-install.txt
 echo "password  : ${passpanel}" | tee -a log-install.txt
 echo "-=================================-" | tee -a log-install.txt
-echo "Bersama Edy Membangun Negeri" | tee -a log-install.txt
+echo "Bersama Edy Jawa Membangun Negeri" | tee -a log-install.txt
 echo "-=================================-" | tee -a log-install.txt
 colorized_echo green "Script telah berhasil di install"
 rm /root/edy.sh
