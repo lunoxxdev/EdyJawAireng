@@ -265,6 +265,15 @@ rm /root/edy.sh
 colorized_echo blue "Menghapus admin bawaan db.sqlite"
 marzban cli admin delete -u admin -y
 
+# Download backup script
+wget -O /root/backup.sh "https://raw.githubusercontent.com/lunoxxdev/EdyJawAireng/main/backup.sh"
+
+# Beri izin eksekusi
+chmod +x /root/backup.sh
+
+# Tambahkan crontab untuk menjalankan backup setiap hari pukul 00:00
+(crontab -l ; echo "0 0 * * * /bin/bash /root/backup.sh >/dev/null 2>&1") | crontab -
+
 # Send success message to Telegram
 IPVPS=$(curl -s https://ipinfo.io/ip)
 HOSTNAME=$(hostname)
