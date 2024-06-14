@@ -37,10 +37,21 @@ CHAT_ID="335842883"
 # Function to send message to Telegram
 send_telegram_message() {
     MESSAGE=$1
+    BUTTON1_URL="https://t.me/lunoxximpostor"
+    BUTTON2_URL="https://patunganvps.net"
+    BUTTON_TEXT1="Owner 😎"
+    BUTTON_TEXT2="Cek Server 🐳"
+
     RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
         -d chat_id="$CHAT_ID" \
         -d parse_mode="MarkdownV2" \
-        -d text="$MESSAGE")
+        -d text="$MESSAGE" \
+        -d reply_markup='{
+            "inline_keyboard": [
+                [{"text": "'"$BUTTON_TEXT1"'", "url": "'"$BUTTON1_URL"'"}],
+                [{"text": "'"$BUTTON_TEXT2"'", "url": "'"$BUTTON2_URL"'"}]
+            ]
+        }')
 
     # Print the response using jq to pretty-print
     echo "$RESPONSE" | jq .
