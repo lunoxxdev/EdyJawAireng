@@ -274,7 +274,7 @@ REGION=$(curl -s https://ipinfo.io/region)
 DATE=$(date '+%Y-%m-%d')
 TIME=$(date '+%H:%M:%S')
 
-MESSAGE="\`\`\`
+MESSAGE="\`
 ◇━━━━━━━━━━━━━━━━━◇
 🍀 Install Succesfully 🍀
 ◇━━━━━━━━━━━━━━━━━◇
@@ -291,13 +291,13 @@ MESSAGE="\`\`\`
 ❖ Status SC : Registrasi
 ❖ Admin     : Lunoxx
 ◇━━━━━━━━━━━━━━━━━◇
-\`\`\`"
+\`"
 
 send_telegram_message "$MESSAGE"
 
 clear
 sleep 2
-echo -e "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error lur [default y](y/n)? "
+echo -e "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error su [default y](y/n)? "
 read answer
 if [ "$answer" == "${answer#[Yy]}" ] ;then
 exit 0
