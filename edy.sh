@@ -48,8 +48,7 @@ send_telegram_message() {
         -d text="$MESSAGE" \
         -d reply_markup='{
             "inline_keyboard": [
-                [{"text": "'"$BUTTON_TEXT1"'", "url": "'"$BUTTON1_URL"'"}],
-                [{"text": "'"$BUTTON_TEXT2"'", "url": "'"$BUTTON2_URL"'"}]
+                [{"text": "'"$BUTTON_TEXT1"'", "url": "'"$BUTTON1_URL"'"}, {"text": "'"$BUTTON_TEXT2"'", "url": "'"$BUTTON2_URL"'"}]
             ]
         }')
 
