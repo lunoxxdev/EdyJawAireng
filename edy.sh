@@ -283,24 +283,24 @@ REGION=$(curl -s https://ipinfo.io/region)
 DATE=$(date '+%Y-%m-%d')
 TIME=$(date '+%H:%M:%S')
 
-MESSAGE="\`
+MESSAGE="
 ◇━━━━━━━━━━━━━━━━━◇
 🍀 Install Succesfully 🍀
 ◇━━━━━━━━━━━━━━━━━◇
-❖ Username  : $HOSTNAME
-❖ Status    : Active
-❖ Domain    : $domain
-❖ Waktu     : $TIME
-❖ Tanggal   : $DATE
-❖ IP VPS    : $IPVPS
-❖ Linux OS  : $OS
-❖ Nama ISP  : $ISP
-❖ Area ISP  : $REGION
-❖ Exp SC    : Liptime
-❖ Status SC : Registrasi
-❖ Admin     : Lunoxx
+❖ Username  : \`$HOSTNAME\`
+❖ Status    : \`Active\`
+❖ Domain    : \`$domain\`
+❖ Waktu     : \`$TIME\`
+❖ Tanggal   : \`$DATE\`
+❖ IP VPS    : \`$IPVPS\`
+❖ Linux OS  : \`$OS\`
+❖ Nama ISP  : \`$ISP\`
+❖ Area ISP  : \`$REGION\`
+❖ Exp SC    : \`Liptime\`
+❖ Status SC : \`Registrasi\`
+❖ Admin     : \`Lunoxx\`
 ◇━━━━━━━━━━━━━━━━━◇
-\`"
+"
 
 send_telegram_message "$MESSAGE"
 
