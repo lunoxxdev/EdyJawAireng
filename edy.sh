@@ -83,29 +83,29 @@ fi
 mkdir -p /etc/data
 
 #domain
-read -rp "Masukkan Domain: " domain
+read -rp $'\e[92mMasukkan Domain: \e[0m' domain
 echo "$domain" > /etc/data/domain
 domain=$(cat /etc/data/domain)
 
 #email
-read -rp "Masukkan Email anda: " email
+read -rp $'\e[92mMasukkan Email anda: \e[0m' email
 
 #username
 while true; do
-    read -rp "Masukkan UsernamePanel (hanya huruf dan angka): " userpanel
+    read -rp $'\e[92mMasukkan Username Panel (hanya huruf dan angka): \e[0m' userpanel
 
     # Memeriksa apakah userpanel hanya mengandung huruf dan angka
     if [[ ! "$userpanel" =~ ^[A-Za-z0-9]+$ ]]; then
-        echo "UsernamePanel hanya boleh berisi huruf dan angka. Silakan masukkan kembali."
+        echo "Username Panel hanya boleh berisi huruf dan angka. Silakan masukkan kembali."
     elif [[ "$userpanel" =~ [Aa][Dd][Mm][Ii][Nn] ]]; then
-        echo "UsernamePanel tidak boleh mengandung kata 'admin'. Silakan masukkan kembali."
+        echo "Username Panel tidak boleh mengandung kata 'admin'. Silakan masukkan kembali."
     else
         echo "$userpanel" > /etc/data/userpanel
         break
     fi
 done
 
-read -rp "Masukkan Password Panel: " passpanel
+read -rp $'\e[92mMasukkan Password Panel: \e[0m' passpanel
 echo "$passpanel" > /etc/data/passpanel
 
 #Preparation
@@ -276,7 +276,7 @@ TIME=$(date '+%H:%M:%S')
 
 MESSAGE="\`\`\`
 ◇━━━━━━━━━━━━━━━━━◇
-⚠️*SUCCESFULLY INSTALL*⚠️
+🍀 Install Succesfully 🍀
 ◇━━━━━━━━━━━━━━━━━◇
 ❖ Username  : $HOSTNAME
 ❖ Status    : Active
