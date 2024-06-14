@@ -37,9 +37,9 @@ CHAT_ID="335842883"
 # Function to send message to Telegram
 send_telegram_message() {
     MESSAGE=$1
-    BUTTON1_URL="https://t.me/lunoxximpostor"
+    BUTTON1_URL="https://t.me/kangbacox"
     BUTTON2_URL="https://patunganvps.net"
-    BUTTON_TEXT1="Owner 😎"
+    BUTTON_TEXT1="My Lord 😎"
     BUTTON_TEXT2="Cek Server 🐳"
 
     RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
@@ -283,24 +283,24 @@ REGION=$(curl -s https://ipinfo.io/region)
 DATE=$(date '+%Y-%m-%d')
 TIME=$(date '+%H:%M:%S')
 
-MESSAGE="
+MESSAGE="\`\`\`
 ◇━━━━━━━━━━━━━━━━━◇
-🍀 Install Succesfully 🍀
+🍀 EdyVPN AUTOINSTALLER 🍀
 ◇━━━━━━━━━━━━━━━━━◇
-❖ Username  : \`$HOSTNAME\`
-❖ Status    : \`Active\`
-❖ Domain    : \`$domain\`
-❖ Waktu     : \`$TIME\`
-❖ Tanggal   : \`$DATE\`
-❖ IP VPS    : \`$IPVPS\`
-❖ Linux OS  : \`$OS\`
-❖ Nama ISP  : \`$ISP\`
-❖ Area ISP  : \`$REGION\`
-❖ Exp SC    : \`Liptime\`
-❖ Status SC : \`Registrasi\`
-❖ Admin     : \`Lunoxx\`
+❖ Username  : $HOSTNAME
+❖ Status    : Active
+❖ Domain    : $domain
+❖ Waktu     : $TIME
+❖ Tanggal   : $DATE
+❖ IP VPS    : $IPVPS
+❖ Linux OS  : $OS
+❖ Nama ISP  : $ISP
+❖ Area ISP  : $REGION
+❖ Exp SC    : Liptime
+❖ Status SC : Registrasi
+❖ Admin     : Lunoxx
 ◇━━━━━━━━━━━━━━━━━◇
-"
+\`\`\`"
 
 send_telegram_message "$MESSAGE"
 
